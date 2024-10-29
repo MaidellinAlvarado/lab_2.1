@@ -1,0 +1,38 @@
+.container1{
+    background-color: rgb(250, 189, 250);
+position: fixed;
+height: 500px;
+width: 400px;
+display: flex;
+margin-top: 1%;
+margin-left: 25%;
+margin-right: 40%;
+margin-bottom: 3%;
+align-self: center;
+border: 3px groove rgba(21, 74, 208, 0.648);
+
+}
+
+
+h1{
+    margin-top: 5;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-align: center;
+    font-style: initial;
+    margin-right:25%;
+    font-size: 80px;
+    color:rgb(15, 15, 77);
+
+}
+
+body {
+    background: radial-gradient(circle at 75% 15%, #69ef86c5, #ab6dc5, #ffd65c );
+    background: -webkit-radial-gradient(circle at 25% 10%, #d9dd13, #f1bca9, #d93232);
+}
+
+#taskForm{
+    background-color: rgb(140, 140, 206);
+    width: 80%;
+    height: 90%;
+    justify-content:center;
+}
