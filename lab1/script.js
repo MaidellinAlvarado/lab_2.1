@@ -1,75 +1,70 @@
 class Usuario {
-constructor (nombre, apellido, correo, puesto, curso, mensaje){
-this.nombre = nombre;
-this.apellido = apellido;
-this.correo = correo;
-this.puesto = puesto;
-this.curso=[];
-this.mensaje=[];
+    constructor(nombre, apellido, correo, puesto) {
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.correo = correo;
+        this.puesto = puesto;
+        this.curso = [];
+        this.mensaje = [];
+    }
 
+    addCourse(nombreCurso, nivel) {
+        const cursoAgregado = { nombre: nombreCurso, nivel: nivel };
+        this.curso.push(cursoAgregado);
+    }
 
-}
+    removeCurso(nombreCurso) {
+        const cursoEliminar = this.curso.findIndex(curso => curso.nombre === nombreCurso);
+        if (cursoEliminar !== -1) {
+            this.curso.splice(cursoEliminar, 1);
+        } else {
+            console.log("Curso no encontrado");
+        }
+    }
 
+    editCurso(nombreCurso, nuevoNombre, nuevoNivel) {
+        const cursoEditar = this.curso.find(curso => curso.nombre === nombreCurso);
 
+        if (!cursoEditar) {
+            console.log("Curso no encontrado");
+            return;
+        }
 
+        cursoEditar.nombre = nuevoNombre || cursoEditar.nombre;
+        cursoEditar.nivel = nuevoNivel || cursoEditar.nivel;
+    }
 
+    enviarMensaje(from, men) {
+        this.mensaje.push({ from, message: men, timestamp: new Date() });
+        this.desdeCorreo(from, this.correo, men);
+    }
 
-addCourse(nombreCurso, nivel) {
-    const CursoAgregado = { nombre: nombreCurso, nivel: nivel }; 
-    this.curso.push(CursoAgregado); 
+    desdeCorreo(from, para, men) {
+        console.log(`Este mensaje ha sido enviado por ${from} a ${para}: ${men}`);
+    }
 
-}
-
-removeCurso(nombreCurso) {
-
-    const cursoEliminar= this.curso.findIndex(curso => curso.nombre === nombreCurso);
-    if (  cursoEliminar!== -1) {
-        this.curso.splice(cursoEliminar, 1);
+    showMessagesHistory() {
+        console.log("Historial de mensajes:");
+        this.mensaje.forEach(({ from, message, timestamp }, index) => {
+            console.log(`${index + 1}. De: ${from} - "${message}" - ${timestamp}`);
+        });
     }
 }
 
 
-editCurso(nombreCurso, nuevoNombre, nuevoNivel) {
-    const cursoEditar = this.curso.find(curso => curso.nombre === nombreCurso);
+let maestro = new Usuario("Jose", "Noda", "usted@gmail.com", "Profesor");
+let estudiante1 = new Usuario("Rafael", "Fife", "rfife@rhyta.com", "estudiante");
 
-    if (!cursoEditar) {
-        console.log("Curso no encontrado");
-        return; 
-    }
-    else
-
-
-    cursoEditar.nombre = nuevoNombre || cursoEditar.nombre;
-    cursoEditar.nivel = nuevoNivel || cursoEditar.nivel;
-}
+// Uso de métodos
+estudiante1.addCourse("matematica", 2);
+estudiante1.removeCurso("matematica");
+estudiante1.addCourse("biologia", 4);
 
 
+console.log(`${estudiante1.nombre} : ${estudiante1.curso.length} curso(s)`);
 
-enviarMensaje(from, men){
-
-    this.mensaje.push({ from, men, timestamp: new Date() });
-    this.desdeCorreo(from, this.correo, men);
-
-}
-
-desdeCorreo (from, para, men){
-
-    console.log('Este mensaje ha sido enviado por ${from} a ${para}');
-
-}
+// Enviar un mensaje del maestro al estudiante
+maestro.enviarMensaje("Jose", "Bienvenido al curso de biología");
 
 
-showMessagesHistory() {
-    console.log("Historial de mensajes:");
-    this.mensaje.forEach(({ from, message, timestamp }, index) => {
-        console.log(`${index + 1}. De: ${from} - "${message}" - ${timestamp}`);
-    });
-
-
-}
-}
-
-
-
-let estudiante1 = new Usuario ({nombre: 'Rafael', apellido: 'Fife', correo: 'rfife@rhyta.com', puesto: 'estudiante'});
-estudiante1.addCourse('matematica', 2);
+maestro.showMessagesHistory();
